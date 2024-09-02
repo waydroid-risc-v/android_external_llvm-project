@@ -1,0 +1,54 @@
+cc_library_static {
+    name: "libLLVM17RISCVCodeGen",
+    defaults: [
+        "llvm17-lib-defaults",
+        "llvm17-riscv-defaults",
+    ],
+    srcs: [
+        "*.cpp",
+        "GISel/*.cpp",
+    ],
+}
+
+cc_defaults {
+    name: "llvm17-riscv-defaults",
+    generated_headers: ["llvm17-gen-riscv"],
+    static_libs: ["llvm17-riscv-headers"],
+}
+
+cc_library_static {
+    name: "llvm17-riscv-headers",
+    vendor_available: true,
+    host_supported: true,
+    target: {
+        windows: {
+            enabled: true,
+        },
+    },
+    export_include_dirs: ["."],
+}
+
+llvm17_tblgen {
+    name: "llvm17-gen-riscv",
+    in: "RISCV.td",
+    outs: [
+        "RISCVGenRegisterInfo.inc",
+        "RISCVGenInstrInfo.inc",
+        "RISCVGenCodeEmitter.inc",
+        "RISCVGenMCCodeEmitter.inc",
+        "RISCVGenMCPseudoLowering.inc",
+        "RISCVGenAsmWriter.inc",
+        "RISCVGenAsmMatcher.inc",
+        "RISCVGenDAGISel.inc",
+        "RISCVGenFastISel.inc",
+        "RISCVGenCallingConv.inc",
+        "RISCVGenSubtargetInfo.inc",
+        "RISCVGenDisassemblerTables.inc",
+	"RISCVGenSearchableTables.inc",
+	"RISCVGenCompressInstEmitter.inc",
+	"RISCVGenRegisterBank.inc",
+	"RISCVGenGlobalISel.inc",
+    ],
+}
+
+subdirs = ["*"]

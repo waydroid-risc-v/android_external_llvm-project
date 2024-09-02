@@ -1,0 +1,8 @@
+cc_library_static {
+    name: "libLLVM17RISCVDesc",
+    defaults: [
+        "llvm17-lib-defaults",
+        "llvm17-riscv-defaults",
+    ],
+    srcs: ["*.cpp"],
+}

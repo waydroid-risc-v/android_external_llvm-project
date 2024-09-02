@@ -266,6 +266,15 @@ llvm_aarch64_static_libraries = [
     "libLLVM17AArch64Disassembler",
 ]
 
+llvm_riscv_static_libraries = [
+    "libLLVM17RISCVCodeGen",
+    "libLLVM17RISCVInfo",
+    "libLLVM17RISCVDesc",
+    "libLLVM17RISCVAsmParser",
+    "libLLVM17RISCVAsmPrinter",
+    "libLLVM17RISCVDisassembler",
+]
+
 llvm_amdgpu_static_libraries = [
     "libLLVM17AMDGPUCodeGen",
     "libLLVM17AMDGPUInfo",
@@ -358,6 +367,7 @@ cc_library_shared {
             // Host build pulls in all ARM, Mips, X86 components.
            whole_static_libs: llvm_arm_static_libraries +
                 llvm_aarch64_static_libraries +
+                llvm_riscv_static_libraries +
                 llvm_mips_static_libraries +
                 llvm_x86_static_libraries,
             export_include_dirs: ["host/include"],
@@ -403,6 +413,9 @@ cc_library_shared {
         android_arm64: {
             whole_static_libs: llvm_aarch64_static_libraries +
                 llvm_arm_static_libraries,
+        },
+        android_riscv64: {
+            whole_static_libs: llvm_riscv_static_libraries,
         },
     },
 }
